@@ -1,5 +1,6 @@
 from gpiozero import LineSensor
 from signal import pause
+import datetime
 import time
 
 kwh = 0
@@ -13,9 +14,9 @@ def zaehler():
     if counter==12:
         global kwh
         kwh= kwh + 1
-        zeile=str(kwh)+"   "+str(time.ctime(time.time())+"\n")
-        #print("1 KWh verbraucht!", kwh, time.ctime(time.time()))
-        f=open("readout.txt", 'a')
+        zeile=str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S,"))+str(kwh/10)+"\n"
+        #print(zeile)
+        f=open(datetime.datetime.now().strftime("%Y-%W")+".csv", 'a+')
         f.write(zeile)
         f.close()
         global counter
