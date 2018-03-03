@@ -1,8 +1,8 @@
 from gpiozero import LineSensor
 from signal import pause
 import datetime
-import time
 
+global kwh
 kwh = 0
 
 counter=0
@@ -21,18 +21,13 @@ def zaehler():
         f.close()
         global counter
         counter=0
+    if datetime.datetime.now().strftime("%w")==1 and kwh>250:
+        global kwh
+        kwh=0
  
-
-
-def auswerter():
-    print(counter,"z")
-
     
 sensor = LineSensor(4)
 
 sensor.when_line = zaehler
-#sensor.when_no_line = auswerter
-
-#print(counter,"y")
 
 pause()
